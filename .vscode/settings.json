@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "2.C": "cpp",
+        "3.C": "cpp",
+        "10.C": "cpp",
+        "666.C": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

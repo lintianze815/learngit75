@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f0f0;
+        }
+
+        /* 计算器外壳 */
+        .calculator {
+            width: 320px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* 显示区域 */
+        .display {
+            background: #fff;
+            padding: 20px;
+            text-align: right;
+        }
+
+        .input {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 5px;
+            min-height: 30px;
+        }
+
+        .result {
+            font-size: 48px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* 按钮区域 */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        button {
+            height: 70px;
+            font-size: 20px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        /* 功能按钮 */
+        .func {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* 运算符按钮 */
+        .op {
+            background: #ff9500;
+            color: white;
+            font-size: 24px;
+        }
+
+        .op:hover {
+            background: #e68a00;
+        }
+
+        /* 等于号 */
+        .equal {
+            background: #ff3b30;
+            color: white;
+        }
+
+        .equal:hover {
+            background: #ca2b22;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="input" id="input"></div>
+            <div class="result" id="result">0</div>
+        </div>
+
+        <div class="buttons">
+            <button class="func" onclick="clearAll()">C</button>
+            <button class="func" onclick="deleteChar()">←</button>
+            <button class="func" onclick="append('%')">%</button>
+            <button class="op" onclick="append('/')">÷</button>
+
+            <button onclick="append('7')">7</button>
+            <button onclick="append('8')">8</button>
+            <button onclick="append('9')">9</button>
+            <button class="op" onclick="append('*')">*</button>
+
+            <button onclick="append('4')">4</button>
+            <button onclick="append('5')">5</button>
+            
+            <button onclick="append('6')">6</button>
+            <button class="op" onclick="append('-')">-</button>
+
+            <button onclick="append('1')">1</button>
+            <button onclick="append('2')">2</button>
+            <button onclick="append('3')">3</button>
+            <button class="op" onclick="append('+')">+</button>
+
+            <button onclick="append('0')">0</button>
+            <button onclick="append('.')">.</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = "";
+        let result = "0";
+
+        // 追加内容
+        function append(value) {
+            // 替换 × ÷ 为程序能识别的符号
+            if (value === "*") value = "*";
+            if (value === "÷") value = "/";
+            
+            currentInput += value;
+            document.getElementById("input").innerText = currentInput;
+        }
+
+        // 清空全部
+        function clearAll() {
+            currentInput = "";
+            result = "0";
+            document.getElementById("input").innerText = "";
+            document.getElementById("result").innerText = "0";
+        }
+
+        // 删除一个字符
+        function deleteChar() {
+            currentInput = currentInput.slice(0, -1);
+            document.getElementById("input").innerText = currentInput;
+        }
+
+        // 计算结果
+        function calculate() {
+            try {
+                result = eval(currentInput);
+                document.getElementById("result").innerText = result;
+            } catch (e) {
+                document.getElementById("result").innerText = "错误";
+            }
+        }
+    </script>
+</body>
+</html>
